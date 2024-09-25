@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace等于mapper接口类的全限定名,这样实现两者对应 -->
+<mapper namespace="com.clover.mapper.StudentMapper">
+    <select id="selectById" resultType="com.clover.pojo.Student">
+        select * from student where id = #{id}
+    </select>
+</mapper>
