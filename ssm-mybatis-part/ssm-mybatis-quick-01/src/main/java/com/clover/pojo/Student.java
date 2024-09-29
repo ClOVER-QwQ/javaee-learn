@@ -25,6 +25,10 @@ public class Student {
         return age;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public void setAge(int age) {
         this.age = age;
     }
