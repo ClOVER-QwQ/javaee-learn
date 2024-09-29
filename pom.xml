@@ -10,5 +10,6 @@
   <modules>
     <module>mavenJavaEE</module>
     <module>ssm-mybatis-part</module>
+    <module>learn-poem</module>
   </modules>
 </project>
