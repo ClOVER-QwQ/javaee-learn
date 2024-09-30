@@ -10,5 +10,6 @@
   <artifactId>Poem</artifactId>  
   <packaging>war</packaging>
   <name>Archetype - Poem</name>  
-  <url>http://maven.apache.org</url> 
+  <url>http://maven.apache.org</url>
+
 </project>

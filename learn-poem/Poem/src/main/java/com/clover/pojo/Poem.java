@@ -55,4 +55,16 @@ public class Poem {
     public void setPoemTypeId(int poemTypeId) {
         this.poemTypeId = poemTypeId;
     }
+
+    @Override
+    public String toString() {
+        return "Poem{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", translation='" + translation + '\'' +
+                ", authorId=" + authorId +
+                ", poemTypeId=" + poemTypeId +
+                '}';
+    }
 }
