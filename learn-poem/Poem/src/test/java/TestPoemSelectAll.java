@@ -12,15 +12,18 @@ public class TestPoemSelectAll {
         List<Poem> poems;
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringConfig.class);
         PoemMapper poemMapper = (PoemMapper) applicationContext.getBean("poemMapper");
-        poemMapper.insert("成尊", "落魄谷中寒风吹","中文",3,3);
-        poems = poemMapper.findAll();
-        for (Poem poem : poems){
-            System.out.println(poem);
-        }
-        poemMapper.deleteByTitle("成尊");
-        poems = poemMapper.findAll();
-        for (Poem poem : poems){
-            System.out.println(poem);
-        }
+//        poemMapper.insert("成尊", "落魄谷中寒风吹","中文",3,3);
+//        poems = poemMapper.findAll();
+//        for (Poem poem : poems){
+//            System.out.println(poem);
+//        }
+//        poemMapper.deleteByTitle("成尊");
+//        poems = poemMapper.findAll();
+//        for (Poem poem : poems){
+//            System.out.println(poem);
+//        }
+        System.out.println(poemMapper.selectPoetById(1));
+        System.out.println(poemMapper.selectCollectionById(1));
+        System.out.println(poemMapper.selectUserById(1));
     }
 }
