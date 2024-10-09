@@ -5,7 +5,7 @@
   <parent> 
     <groupId>org.clover</groupId>  
     <artifactId>JavaEE</artifactId>  
-    <version>1.0-SNAPSHOT</version> 
+    <version>1.0-SNAPSHOT</version>
   </parent>  
   <artifactId>learn-poem</artifactId>  
   <packaging>pom</packaging>
@@ -18,24 +18,12 @@
     <module>Poem</module>  
     <module>Collection</module> 
   </modules>  
-  <dependencies> 
+  <dependencies>
     <dependency> 
       <groupId>org.springframework</groupId>  
-      <artifactId>spring-context</artifactId>  
+      <artifactId>spring-context</artifactId>
       <version>6.1.12</version> 
-    </dependency>  
-    <!-- Spring Core -->  
-    <dependency> 
-      <groupId>org.springframework</groupId>  
-      <artifactId>spring-core</artifactId>  
-      <version>6.1.12</version> 
-    </dependency>  
-    <!-- Spring Beans -->  
-    <dependency> 
-      <groupId>org.springframework</groupId>  
-      <artifactId>spring-beans</artifactId>  
-      <version>6.1.12</version> 
-    </dependency>  
+    </dependency>
     <!-- Jackson Databind -->  
     <dependency> 
       <groupId>com.fasterxml.jackson.core</groupId>  
@@ -60,6 +48,21 @@
       <artifactId>junit-jupiter-api</artifactId>  
       <version>5.9.3</version>  
       <scope>test</scope> 
-    </dependency> 
+    </dependency>
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis-spring</artifactId>
+      <version>3.0.3</version>
+    </dependency>
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>druid</artifactId>
+      <version>1.2.11</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>4.3.8.RELEASE</version>
+    </dependency>
   </dependencies> 
 </project>
