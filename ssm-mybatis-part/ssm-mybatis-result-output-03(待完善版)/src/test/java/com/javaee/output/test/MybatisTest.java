@@ -112,7 +112,7 @@ public class MybatisTest {
     @Test
     public void testSelectOldAlias(){
         StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
-        Student student = mapper.selectOldAlias(3);
+        Student student = mapper.selectOldAlias(1);
         System.out.println("student = " + student);
     }
 
@@ -120,7 +120,7 @@ public class MybatisTest {
     @Test
     public void testSelectOld(){
         StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
-        Student student = mapper.selectOld(4);
+        Student student = mapper.selectOld(2);
         System.out.println("student = " + student);
     }
 

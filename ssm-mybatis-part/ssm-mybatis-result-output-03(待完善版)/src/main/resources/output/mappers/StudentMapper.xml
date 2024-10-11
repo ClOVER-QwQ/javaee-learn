@@ -56,15 +56,13 @@
 <!--    // 6.1 起别名-->
 <!--    Student selectOldAlias(int sid);-->
     <select id="selectOldAlias" resultType="com.javaee.output.po.Student">
-        select id,xh as number,xm as name,nl as age,grjs as intro
-        from student  where id=#{sid}
+        select id,xh as number,xm as name,nl as age,grjs as intro from studentOld  where id=#{sid}
     </select>
 
 <!--    // 6.2 使用resultMap手动映射字段和类的成员属性-->
 <!--    Student selectOld(int sid);-->
     <select id="selectOld" resultType="com.javaee.output.po.Student" resultMap="resultMap">
-        select id,xh,xm,nl,intro
-        from student  where id=#{sid}
+        select id,xh,xm,nl,grjs from studentOld  where id=#{sid}
     </select>
 
     <resultMap id="resultMap" type="com.javaee.output.po.Student">
