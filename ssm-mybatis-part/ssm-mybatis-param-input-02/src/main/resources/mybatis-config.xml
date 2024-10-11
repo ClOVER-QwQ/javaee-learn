@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <!-- 配置数据库 -->
+            <dataSource type="POOLED">
+                <!-- 建立数据库连接的具体信息 -->
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/javaeedb?serverTimezone=UTC"/>
+                <property name="username" value="root"/>
+                <property name="password" value="Clover20040302"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <!-- Mapper注册：指定Mybatis映射文件的具体位置，这里需要使用一个以类路径根目录为基准的相对路径 -->
+        <mapper resource="input/mappers/StudentMapper.xml"/>
+    </mappers>
+</configuration>
+

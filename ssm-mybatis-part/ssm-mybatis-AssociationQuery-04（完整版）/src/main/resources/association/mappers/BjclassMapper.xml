@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaee.association.mapper.BjclassMapper">
+    <!-- 班级表bjclass 字段(bj_id,bj_code,bj_name) -->
+
+    <!--    //只查询班级
+    Bjclass selectById(int bjId);
+    -->
+    <select id="selectById" resultType="bjclass">
+        select bj_id bjId,bj_code bjCode,bj_name bjName
+        from bjclass
+        where bj_id=#{bjId}
+    </select>
+
+    <!--
+    //查询班级，并且查询该班级的学生
+    Bjclass selectByIdWithStudent(int bjId);
+    -->
+    <select id="selectByIdWithStudent" resultMap="bjclassMap">
+        select bj_id bjId,bj_code bjCode,bj_name bjName
+        from bjclass
+        where bj_id=#{bjId}
+    </select>
+    <resultMap id="bjclassMap" type="bjclass">
+<!--        <id column="bjId" property="bjId" />-->
+<!--        <result column="bjCode" property="bjCode"/>-->
+<!--        <result column="bjName" property="bjName"/>-->
+        <!--嵌套查询-->
+        <collection property="students" ofType="student"
+                    select="com.javaee.association.mapper.StudentMapper.selectByBjid"
+                    column="bjId" />
+    </resultMap>
+
+    <!-- 多表连接查询班级以及该班级的学生-->
+    <select id="selectByIdJoinStudent" resultMap="bjclassMap2">
+        select bj.bj_id,bj.bj_code,bj.bj_name,st.*
+        from bjclass bj,student st
+        where bj.bj_id=st.bj_id and bj.bj_id=#{bjid}
+    </select>
+    <!--扩展配置mybatis自动映射策略
+    -->
+    <resultMap id="bjclassMap2" type="bjclass">
+        <id column="bj_id" property="bjId"/>
+        <collection property="students" ofType="student">
+            <id column="id" property="id"/>
+            <result column="number" property="number"/>
+        </collection>
+    </resultMap>
+
+
+</mapper>

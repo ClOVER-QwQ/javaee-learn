@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaee.input.mapper.StudentMapper">
+    <select id="selectById" resultType="com.javaee.input.po.Student">
+        select * from student where id = #{sid}
+    </select>
+
+    <!-- 更新学生信息，多个简单类型参数 -->
+    <update id="update">
+        update student set name = #{sname}, age = #{sage} where id = #{sid}
+    </update>
+
+    <!-- 更新学生信息，多个简单类型参数并使用自定义别名 -->
+    <update id="updateByAlias">
+        update student set name = #{sname}, age = #{sage} where id = #{sid}
+    </update>
+
+    <!-- 根据指定列名和参数值查询学生信息 -->
+    <select id="selectByParam" resultType="com.javaee.input.po.Student">
+        select * from student where ${columnName} = #{paramValue}
+    </select>
+
+    <!-- 根据学号删除学生信息，存在 SQL 注入风险 -->
+    <delete id="deleteByNum">
+        delete from student where number = '${snum}'
+    </delete>
+
+    <!-- 插入学生信息，实体类型参数 -->
+    <insert id="insertStudent" parameterType="com.javaee.input.po.Student">
+        insert into student (id,name,number,age) values (#{id}, #{name}, #{number},#{age})
+    </insert>
+
+    <!-- 更新学生信息，Map 类型参数 -->
+    <update id="updateByMap">
+        update student set name = #{map.sname},age = #{map.sage} where id = #{map.sid}
+    </update>
+</mapper>

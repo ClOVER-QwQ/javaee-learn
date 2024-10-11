@@ -1,0 +1,23 @@
+1 数据库表之间的关联关系在java的实体类与类之间中如何表现
+2 班级表根据id查询
+  （数据库表字段名和班级实体类属性不同名）
+  方式1:列起别名
+  方式2:<resultMap><id><result>
+  方式3:扩展：全局配置自动将数据库的蛇形命名映射成驼峰式命名规则
+  <!-- 使用settings对Mybatis全局进行设置 -->
+  <settings>
+    <!-- 将xxx_xxx这样的列名自动映射到xxXxx这样驼峰式命名的属性名 -->
+    <setting name="mapUnderscoreToCamelCase" value="true"/>
+  </settings>
+
+3 班级表嵌套查询学生
+  <resultMap>
+  <collection>
+
+4  班级表连接查询学生表
+  <resultMap>
+  <collection>
+  扩展：配置文件中自动映射
+  <!--开启resultMap自动映射 -->
+  <setting name="autoMappingBehavior" value="FULL"/>
+

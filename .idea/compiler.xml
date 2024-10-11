@@ -19,12 +19,15 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Poem" />
+        <module name="ssm-mybatis-param-input-02" />
         <module name="PoemType" />
         <module name="User" />
         <module name="Poet" />
         <module name="Collection" />
         <module name="mavenJavaEE" />
         <module name="ssm-mybatis-quick-01" />
+        <module name="ssm-mybatis-AssociationQuery-04" />
+        <module name="ssm-mybatis-result-output-03" />
       </profile>
     </annotationProcessing>
   </component>

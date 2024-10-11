@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaee.output.mapper.StudentMapper">
+    <!--0 DML不需要指定返回结果类型，没有resultType属性-->
+    <delete id="deleteById" >
+        delete from student where id=#{sid}
+    </delete>
+
+<!--    //1 返回单个简单类型-->
+<!--    //扩展： mybatis内部别名-->
+<!--    int selectStudentCount();-->
+<!--    String selectNameById(int sid);-->
+    <select id="selectStudentCount" resultType="java.lang.Integer">
+        select  count(*)  from student
+    </select>
+    <select id="selectNameById" resultType="string">
+        select name from student where id=#{sid}
+    </select>
+
+<!--    //2 返回实体类对象-->
+<!--    //扩展：自定义别名-->
+<!--    Student selectById(int sid);-->
+    <select id="selectById" resultType="com.javaee.output.po.Student">
+        select id,number,name,age,intro from student
+        where id=#{sid}
+    </select>
+
+<!--    //3 返回Map类型-->
+<!--    Map<String,Integer> selectAgeCount();-->
+    <select id="selectAgeCount" resultType="map">
+        select id as student_key, count(*) studentCount
+        from student where age=#{age}
+    </select>
+
+<!--    //4 返回List类型-->
+<!--    List<Student> selectAll();-->
+    <select id="selectAll" resultType="com.javaee.output.po.Student">
+        select * from student
+    </select>
+
+<!--    List<String> selectNameAll();-->
+    <select id="selectNameAll" resultType="String">
+        select name from student
+    </select>
+
+<!--    //5返回自增的主键值-->
+<!--    int insertStudent(Student student);-->
+    <insert id="insertStudent">
+        insert into student(number,name,age,intro)
+        values(#{number},#{name},#{age},#{intro})
+    </insert>
+
+
+<!--    //6 如果表字段（id,xh,xm,nl,grjs）和类的属性(id,number,name,age,intro)不同名-->
+<!--    // 6.1 起别名-->
+<!--    Student selectOldAlias(int sid);-->
+    <select id="selectOldAlias" resultType="com.javaee.output.po.Student">
+        select id,xh as number,xm as name,nl as age,grjs as intro from studentOld  where id=#{sid}
+    </select>
+
+<!--    // 6.2 使用resultMap手动映射字段和类的成员属性-->
+<!--    Student selectOld(int sid);-->
+    <select id="selectOld" resultType="com.javaee.output.po.Student" resultMap="resultMap">
+        select id,xh,xm,nl,grjs from studentOld  where id=#{sid}
+    </select>
+
+    <resultMap id="resultMap" type="com.javaee.output.po.Student">
+        <id column="id" property="id"/>
+        <result column="xh" property="number"/>
+        <result column="xm" property="name"/>
+        <result column="nl" property="age"/>
+        <result column="grjs" property="intro"/>
+    </resultMap>
+</mapper>
