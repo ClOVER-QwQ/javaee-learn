@@ -24,7 +24,9 @@
         <module name="Poet" />
         <module name="Collection" />
         <module name="mavenJavaEE" />
+        <module name="ssm-mybatis-reslut-output-03" />
         <module name="ssm-mybatis-quick-01" />
+        <module name="ssm-mybatis-AssociationQuery-04" />
       </profile>
     </annotationProcessing>
   </component>
