@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+    <!--1 开启注解扫描,精确指定对那个包下的类进行注解扫描-->
+    <context:component-scan base-package="com.javaee.annotaion.dao.Impl,com.javaee.annotaion.service.Impl"/>
+
+    <!--2 读取属性文件-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <!--3 第三方依赖中的类，无法通过注解，只能在xml配置文件中通过bean加入Spring容器-->
+    <bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <!--2 通过${}读取属性文件的值-->
+        <property name="url" value="${mysql.url}"/>
+        <property name="driverClassName" value="${mysql.driverClassName}"/>
+        <property name="username" value="${mysql.username}" />
+        <property name="password" value="${mysql.password}" />
+    </bean>
+
+    <!--3 第三方依赖中的类,在xml配置文件中通过bean加入Spring容器-->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="druidDataSource" />
+    </bean>
+</beans>

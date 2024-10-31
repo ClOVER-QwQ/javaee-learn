@@ -12,6 +12,7 @@
       <directory url="file://$PROJECT_DIR$/learn-poem/Poem/src/main/resources/archetype-resources" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/learn-poem/PoemType/src/main/resources/archetype-resources" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/learn-poem/Collection/src/main/resources/archetype-resources" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/exam1/src/main/resources/archetype-resources" includeSubdirectories="true" />
     </excludeFromCompile>
     <annotationProcessing>
       <profile name="Maven default annotation processors profile" enabled="true">
@@ -20,15 +21,24 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Poem" />
         <module name="ssm-mybatis-param-input-02" />
-        <module name="PoemType" />
+        <module name="spring-annotation-xml-02" />
         <module name="User" />
         <module name="Poet" />
-        <module name="Collection" />
-        <module name="mavenJavaEE" />
+        <module name="spring-aop-annotation-04" />
+        <module name="spring-xml-quick-01" />
         <module name="ssm-mybatis-quick-01" />
         <module name="ssm-mybatis-AssociationQuery-04" />
+        <module name="ssm-mybatis-dynamicQuery-05" />
+        <module name="PoemType" />
+        <module name="ssm-mybatis-dao-service-07" />
+        <module name="spring-annotation-javaConfig-03" />
+        <module name="Collection" />
+        <module name="mavenJavaEE" />
         <module name="ssm-mybatis-result-output-03" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="exam1" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

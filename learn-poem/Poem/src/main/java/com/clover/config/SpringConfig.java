@@ -1,6 +1,8 @@
 package com.clover.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.github.pagehelper.PageHelper;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,19 +12,24 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 import javax.sql.DataSource;
+import java.util.Properties;
 
-@Configuration//证明是配置文件
-@ComponentScan("com.clover")//bean注解扫描
-@PropertySource("classpath:jdbc.properties")//引入外部属性文件
-@MapperScan("com.clover.mapper")
+@Configuration
+@ComponentScan("com.clover")
+@PropertySource("classpath:jdbc.properties")
+@MapperScan("com.clover.dao")
 public class SpringConfig {
+    @Value("${jdbc.driver}")
+    private String driver;
+    @Value("${jdbc.url}")
+    private String url;
+    @Value("${jdbc.username}")
+    private String username;
+    @Value("${jdbc.password}")
+    private String password;
+
     @Bean
-    public DataSource dataSource(
-            @Value("${jdbc.driver}") String driver,
-            @Value("${jdbc.url}") String url,
-            @Value("${jdbc.username}") String username,
-            @Value("${jdbc.password}") String password
-    ){
+    public DataSource dataSource() {
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setDriverClassName(driver);
         dataSource.setUrl(url);
@@ -30,10 +37,11 @@ public class SpringConfig {
         dataSource.setPassword(password);
         return dataSource;
     }
+
     @Bean
-    public SqlSessionFactoryBean sqlSessionFactoryBean(DataSource dataSource){
+    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
-        return  sqlSessionFactoryBean;
+        return sqlSessionFactoryBean.getObject();
     }
 }

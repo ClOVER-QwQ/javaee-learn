@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--   代码请补充-->
+<mapper namespace="com.javaee.dynamicQuery.mapper.StudentMapper">
+<!--    //1.1 <if>的使用-->
+<!--    //根据学号、姓名和年龄等多条件组合查询出符合条件的学生-->
+<!--    List<Student> queryByMultiParam1(Student student);-->
+    <select id="queryByMultiParam1" resultType="student">
+        select * from student where 1=1
+        <if test="number!=null and number!=''">
+            number like concat('%',#{number},'%')
+        </if>
+        <if test="name!=null and name!=''">
+            name like concat('%',#{name},'%')
+        </if>
+        <if test="age>0">
+            age=#{age}
+        </if>
+    </select>
+
+<!--&lt;!&ndash;    //1.2 <if>的使用,多表查询&ndash;&gt;-->
+<!--&lt;!&ndash;    // 根据学号、姓名和班级编号等多条件组合查询出符合条件的学生&ndash;&gt;-->
+<!--&lt;!&ndash;    List<Student> queryByMultiParam2(Map<String,String> map);&ndash;&gt;-->
+<!--    <select id="queryByMultiParam2" resultType="student">-->
+<!--        select * from student st,bjclass bj where st.bj_id=bj.bj_id-->
+<!--        <if test="number!=null and number!=''">-->
+<!--            and st.number like concat('%',#{number},'%')-->
+<!--        </if>-->
+<!--        <if test="name!=null and name!=''">-->
+<!--            and st.name like concat('%',#{name},'%')-->
+<!--        </if>-->
+<!--        <if test="bjCode!=null and bjCode!=''">-->
+<!--            and bj.bj_code=#{bjCode}-->
+<!--        </if>-->
+<!--    </select>-->
+
+<!--    &lt;!&ndash;    //2.1 <if>+<where>的使用&ndash;&gt;-->
+<!--    &lt;!&ndash;    // 根据学号、姓名和年龄等多条件组合查询出符合条件的学生&ndash;&gt;-->
+<!--    &lt;!&ndash;    List<Student> queryByMultiParam3(Student student);&ndash;&gt;-->
+<!--    <select id="queryByMultiParam3" resultType="student">-->
+<!--        select * from student-->
+
+<!--            <if test="number!=null and number!=''">-->
+<!--                and number like concat('%',#{number},'%')-->
+<!--            </if>-->
+<!--            <if test="name!=null and name!=''">-->
+<!--                and name like concat('%',#{name},'%')-->
+<!--            </if>-->
+<!--            <if test="age>0">-->
+<!--                and age=#{age}-->
+<!--            </if>-->
+
+<!--    </select>-->
+
+<!--&lt;!&ndash;    //2.2 <set>配合<if>的使用-->
+<!--         根据id，只修改有值的列    &ndash;&gt;-->
+<!--&lt;!&ndash;    int updateStudent(Student stu);&ndash;&gt;-->
+<!--&lt;!&ndash;    <set>和<if>用法  必须要有一个条件成立，否则sql语法错&ndash;&gt;-->
+<!--    <update id="updateStudent">-->
+<!--        update student-->
+
+<!--            <if test="number!=null and number!=''">-->
+<!--                 number=#{number},-->
+<!--            </if>-->
+<!--            <if test="name!=null and name!=''">-->
+<!--                 name=#{name},-->
+<!--            </if>-->
+<!--            <if test="age>0">-->
+<!--                 age=#{age},-->
+<!--            </if>-->
+<!--            <if test="intro!=null and intro!=''">-->
+<!--                intro=#{intro}-->
+<!--            </if>-->
+
+<!--        where id=#{id}-->
+<!--    </update>-->
+
+<!--&lt;!&ndash;    //3 <choose>、<when>、<otherwise>的使用&ndash;&gt;-->
+<!--&lt;!&ndash;    // 多条件按优先级查询，&ndash;&gt;-->
+<!--&lt;!&ndash;    // 如果有学号则按照学号，&ndash;&gt;-->
+<!--&lt;!&ndash;    // 没有学号，有姓名则按照姓名查询&ndash;&gt;-->
+<!--&lt;!&ndash;    // 否则查询age>30&ndash;&gt;-->
+<!--&lt;!&ndash;    List<Student> selectByOneCondition(Student stu);&ndash;&gt;-->
+<!--    <select id="selectByOneCondition" resultType="student">-->
+<!--        select * from student-->
+
+<!--    </select>-->
+
+<!--&lt;!&ndash;    //4.1 批量删除学生&ndash;&gt;-->
+<!--&lt;!&ndash;    int deleteMulti(int[] ids);-->
+<!--        Available parameters are [array, arg0]-->
+<!--        delete from student where id in(?,?,?)-->
+<!--&ndash;&gt;-->
+<!--    <delete id="deleteMulti">-->
+<!--        delete from student-->
+<!--    </delete>-->
+
+<!--    &lt;!&ndash; int deleteMulti2(@Param("ids") int[] ids);&ndash;&gt;-->
+<!--    <delete id="deleteMulti2">-->
+<!--        delete from student-->
+<!--    </delete>-->
+
+<!--&lt;!&ndash;    //4.2 批量插入 int insertStudents(List<Student> studentList);-->
+<!--    sql的语法：    insert into student(number,name,age,intro) values-->
+<!--    ('029094067','阿飞',35,''),('029094068','百晓生',36,'')-->
+<!--&ndash;&gt;-->
+<!--&lt;!&ndash;-->
+<!--       报错：-->
+<!--       Cause: org.apache.ibatis.binding.BindingException:-->
+<!--       Parameter 'studentList' not found.-->
+<!--       Available parameters are [arg0, collection, list]-->
+<!--&ndash;&gt;-->
+<!--       <insert id="insertStudents" useGeneratedKeys="true" keyProperty="id" keyColumn="id">-->
+<!--           insert into student(number,name,age,intro) values-->
+
+<!--       </insert>-->
+
+<!--    &lt;!&ndash;-->
+<!--       int insertStudents2(@ParamList<Student> studentList);-->
+<!--    &ndash;&gt;-->
+<!--    <insert id="insertStudents2" useGeneratedKeys="true" keyProperty="id" keyColumn="id">-->
+<!--        insert into student(number,name,age,intro) values-->
+
+<!--    </insert>-->
+</mapper>
