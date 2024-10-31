@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
+
+    <!-- 引入属性文件 -->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <!-- 组件扫描 -->
+<!--    <context:component-scan base-package="com.clover"/>-->
+    <mybatis-spring:scan base-package="com.clover.dao" />
+    <bean id="poemDao" class="com.clover.dao.impl.PoemDaoImpl"/>
+    <bean id="poemService" class="com.clover.service.impl.PoemServiceImpl">
+        <constructor-arg ref="poemDao"/>
+    </bean>
+<!--    <bean id="poemService" class="com.clover.service.impl.PoemServiceImpl">-->
+<!--        <property name="poemDao" ref="poemDao"/>-->
+<!--    </bean>-->
+    <!-- 定义数据源 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <!-- 定义SqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 定义PageHelper -->
+    <bean id="pageHelper" class="com.github.pagehelper.PageHelper">
+        <property name="properties">
+            <props>
+                <prop key="helperDialect">mysql</prop>
+                <prop key="reasonable">true</prop>
+                <prop key="supportMethodsArguments">true</prop>
+                <prop key="params">count=countSql</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- 定义Mapper扫描 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.clover.dao"/>
+    </bean>
+
+</beans>

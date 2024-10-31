@@ -13,8 +13,10 @@
     <modules>
         <module>ssm-mybatis-quick-01</module>
         <module>ssm-mybatis-param-input-02</module>
-        <module>ssm-mybatis-result-output-03(待完善版)</module>
-        <module>ssm-mybatis-AssociationQuery-04（完整版）</module>
+        <module>ssm-mybatis-result-output-03</module>
+        <module>ssm-mybatis-AssociationQuery-04</module>
+        <module>ssm-mybatis-dynamicQuery-05</module>
+        <module>ssm-mybatis-dao-service-07</module>
     </modules>
 
     <dependencies>

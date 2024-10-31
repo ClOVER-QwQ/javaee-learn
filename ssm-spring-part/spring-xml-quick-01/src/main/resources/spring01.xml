@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="stuDao" class="com.javaee.dao.StudentDao"/>
+
+    <bean id="stuService" class="com.javaee.service.StudentService">
+        <!--设值注入-->
+        <property name="studentDao" ref="stuDao"/>
+    </bean>
+
+    <bean id="stuService2" class="com.javaee.service.StudentService">
+        <!--构造注入-->
+        <constructor-arg index="0" ref="stuDao"/>
+    </bean>
+
+</beans>

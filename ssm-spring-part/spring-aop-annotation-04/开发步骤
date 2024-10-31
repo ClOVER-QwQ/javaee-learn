@@ -1,0 +1,216 @@
+任务：为service类里的方法添加操作日志，记录每个方法被调用的时间，以及类明和方法名，以及参数。
+1.新建模块，在pom.xml引入aop的依赖
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-aop</artifactId>
+    <version>6.1.12</version>
+</dependency>
+<!-- spring-aspects会帮我们传递过来aspectjweaver -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-aspects</artifactId>
+    <version>6.1.12</version>
+</dependency>
+
+2.准备po、dao和service层代码
+  采用目前规范的接口和实现类的方式进行开发；
+  service调用dao，采用基于注解的依赖注入。
+
+3.切面类
+3.1 创建类，通过注解标识为切面类
+@Aspect     //切面类
+@Component  //bean
+public class OperateLogAspect {
+
+}
+3.2 编写saveServiceMethodInvoke方法
+public void saveServiceMethodInvoke(JoinPoint joinPoint){
+    long currentTimeMillis = System.currentTimeMillis();
+    System.out.println("调用时间：" + currentTimeMillis);
+
+    String className = joinPoint.getTarget().getClass().getName();
+    System.out.println("className = " + className);
+    String methodName = joinPoint.getSignature().getName();
+    System.out.println("methodName = " + methodName);
+    Object[] args = joinPoint.getArgs();
+    for(Object arg:args){
+        System.out.println("arg = " + arg);
+    }
+}
+1.  **JointPoint接口的使用**
+需要获取方法签名、传入的实参等信息时，可以在通知方法声明JoinPoint类型的形参。
+-   要点1：JoinPoint 接口通过 getSignature() 方法获取目标方法的签名（方法声明时的完整信息）
+-   要点2：通过目标方法签名对象获取方法名
+-   要点3：通过 JoinPoint 对象获取外界调用目标方法时传入的实参列表组成的数组
+    // 1.通过JoinPoint对象获取目标方法签名对象
+    // 方法的签名：一个方法的全部声明信息
+    Signature signature = joinPoint.getSignature();
+
+    // 2.通过方法的签名对象获取目标方法的详细信息
+    String methodName = signature.getName();
+    System.out.println("methodName = " + methodName);
+
+    int modifiers = signature.getModifiers();
+    System.out.println("modifiers = " + modifiers);
+
+    String declaringTypeName = signature.getDeclaringTypeName();
+    System.out.println("declaringTypeName = " + declaringTypeName);
+
+    // 3.通过JoinPoint对象获取外界调用目标方法时传入的实参列表
+    Object[] args = joinPoint.getArgs();
+
+    // 4.由于数组直接打印看不到具体数据，所以转换为List集合
+    List<Object> argList = Arrays.asList(args);
+
+    System.out.println("[AOP前置通知] " + methodName + "方法开始了，参数列表：" + argList);
+
+3.3 在saveServiceMethodInvoke方法上添加注解
+@Before(value = "execution(public int com.javaee.aop.service.impl.StudentServiceImpl.*(..))")
+public void saveServiceMethodInvoke(JoinPoint joinPoint){
+// @Before注解标记前置通知方法
+// value属性：切入点表达式，告诉Spring当前通知方法要套用到哪个目标方法上
+
+4 在springxml配置文件和配置类中开启aspectj注解支持
+1).  xml方式
+<!-- 进行包扫描-->
+<context:component-scan base-package="com.javaee.aop" />
+<!-- 开启aspectj注解支持-->
+<aop:aspectj-autoproxy />
+
+2).  配置类方式
+@Configuration
+@ComponentScan(basePackages = "com.atguigu")
+@EnableAspectJAutoProxy //开启 Aspectj注解支持! 作用等于 <aop:aspectj-autoproxy />
+public class SpringConfig {
+}
+
+5.测试验证
+package com.javaee.aop.test;
+
+@SpringJUnitConfig(value ={SpringConfig.class} )
+public class AopTest {
+    @Autowired
+    @Qualifier("studentServiceImpl")
+    private StudentService studentService;
+
+    @Test
+    public void testInsertStudent(){
+        studentService.insertStudent(stu);
+    }
+
+    private Student stu;
+    @BeforeEach
+    public void before(){
+        stu=new Student(); //测试数据
+        stu.setNumber("22302091010");
+        stu.setName("徐杰");
+        stu.setAge(20);
+        stu.setIntro("2022级软件工程1班学生");
+    }
+}
+
+详细介绍知识点：
+1、切入点表达式的编写和注解
+2、几种常用的通知
+    -   前置通知：在被代理的目标方法前执行
+    -   返回通知：在被代理的目标方法成功结束后执行（**寿终正寝**）
+    -   异常通知：在被代理的目标方法异常结束后执行（**死于非命**）
+    -   后置通知：在被代理的目标方法最终结束后执行（**盖棺定论**）
+    -   环绕通知：使用try...catch...finally结构围绕整个被代理的目标方法，包括上面四种通知对应的所有位置
+
+
+2.  **方法返回值**
+@AfterReturning
+在返回通知中，通过 **@AfterReturning**注解的returning属性获取目标方法的返回值！
+    ```java
+    // @AfterReturning注解标记返回通知方法
+    // 在返回通知中获取目标方法返回值分两步：
+    // 第一步：在@AfterReturning注解中通过returning属性设置一个名称
+    // 第二步：使用returning属性设置的名称在通知方法中声明一个对应的形参
+    @AfterReturning(
+            value = "execution(public int com.atguigu.aop.api.Calculator.add(int,int))",
+            returning = "targetMethodReturnValue"
+    )
+    public void printLogAfterCoreSuccess(JoinPoint joinPoint, Object targetMethodReturnValue) {
+
+        String methodName = joinPoint.getSignature().getName();
+
+        System.out.println("[AOP返回通知] "+methodName+"方法成功结束了，返回值是：" + targetMethodReturnValue);
+    }
+    ```
+3.  **异常对象捕捉**
+@AfterThrowing
+    在异常通知中，通过@AfterThrowing注解的throwing属性获取目标方法抛出的异常对象
+    ```java
+    // @AfterThrowing注解标记异常通知方法
+    // 在异常通知中获取目标方法抛出的异常分两步：
+    // 第一步：在@AfterThrowing注解中声明一个throwing属性设定形参名称
+    // 第二步：使用throwing属性指定的名称在通知方法声明形参，Spring会将目标方法抛出的异常对象从这里传给我们
+    @AfterThrowing(
+            value = "execution(public int com.atguigu.aop.api.Calculator.add(int,int))",
+            throwing = "targetMethodException"
+    )
+    public void printLogAfterCoreException(JoinPoint joinPoint, Throwable targetMethodException) {
+
+        String methodName = joinPoint.getSignature().getName();
+
+        System.out.println("[AOP异常通知] "+methodName+"方法抛异常了，异常类型是：" + targetMethodException.getClass().getName());
+    }
+
+环绕通知对应整个 try...catch...finally 结构，包括前面四种通知的所有功能。
+
+```java
+// 使用@Around注解标明环绕通知方法
+@Around(value = "com.atguigu.aop.aspect.AtguiguPointCut.transactionPointCut()")
+public Object manageTransaction(
+
+        // 通过在通知方法形参位置声明ProceedingJoinPoint类型的形参，
+        // Spring会将这个类型的对象传给我们
+        ProceedingJoinPoint joinPoint) {
+
+    // 通过ProceedingJoinPoint对象获取外界调用目标方法时传入的实参数组
+    Object[] args = joinPoint.getArgs();
+
+    // 通过ProceedingJoinPoint对象获取目标方法的签名对象
+    Signature signature = joinPoint.getSignature();
+
+    // 通过签名对象获取目标方法的方法名
+    String methodName = signature.getName();
+
+    // 声明变量用来存储目标方法的返回值
+    Object targetMethodReturnValue = null;
+
+    try {
+
+        // 在目标方法执行前：开启事务（模拟）
+        log.debug("[AOP 环绕通知] 开启事务，方法名：" + methodName + "，参数列表：" + Arrays.asList(args));
+
+        // 过ProceedingJoinPoint对象调用目标方法
+        // 目标方法的返回值一定要返回给外界调用者
+        targetMethodReturnValue = joinPoint.proceed(args);
+
+        // 在目标方法成功返回后：提交事务（模拟）
+        log.debug("[AOP 环绕通知] 提交事务，方法名：" + methodName + "，方法返回值：" + targetMethodReturnValue);
+
+    }catch (Throwable e){
+
+        // 在目标方法抛异常后：回滚事务（模拟）
+        log.debug("[AOP 环绕通知] 回滚事务，方法名：" + methodName + "，异常：" + e.getClass().getName());
+
+    }finally {
+
+        // 在目标方法最终结束后：释放数据库连接
+        log.debug("[AOP 环绕通知] 释放数据库连接，方法名：" + methodName);
+
+    }
+
+    return targetMethodReturnValue;
+}
+
+1.  AOP一种区别于OOP的编程思维，用来完善和解决OOP的非核心代码冗余和不方便统一维护问题！
+2.  代理技术（动态代理|静态代理）是实现AOP思维编程的具体技术，但是自己使用动态代理实现代码比较繁琐！
+3.  Spring AOP框架，基于AOP编程思维，封装动态代理技术，简化动态代理技术实现的框架！SpringAOP内部帮助我们实现动态代理，我们只需写少量的配置，指定生效范围即可,即可完成面向切面思维编程的实现！
+
+动态代理（InvocationHandler）：JDK原生的实现方式，需要被代理的目标类必须实现接口。因为这个技术要求代理对象和目标对象实现同样的接口（兄弟两个拜把子模式）。
+-   cglib：通过继承被代理的目标类（认干爹模式）实现代理，所以不需要目标类实现接口。
+-   AspectJ：早期的AOP实现的框架，SpringAOP借用了AspectJ中的AOP注解。

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--   代码请补充-->
+<mapper namespace="com.javaee.dynamicQuery.mapper.StudentMapper">
+<!--    //1.1 <if>的使用-->
+<!--    //根据学号、姓名和年龄等多条件组合查询出符合条件的学生-->
+<!--    List<Student> queryByMultiParam1(Student student);-->
+    <select id="queryByMultiParam1" resultType="student">
+        select * from student where 1=1
+        <if test="number!=null and number!=''">
+            and number like concat('%',#{number},'%')        <!--' % #{number} % '-->
+        </if>
+        <if test="name!=null and name!=''">
+            and name like concat('%',#{name},'%')            <!--' % #{number} % '-->
+        </if>
+        <if test="age>0">
+            and age=#{age}
+        </if>
+    </select>
+
+<!--    //1.2 <if>的使用,多表查询-->
+<!--    // 根据学号、姓名和班级编号等多条件组合查询出符合条件的学生-->
+<!--    List<Student> queryByMultiParam2(Map<String,String> map);
+        map.put("number","22302091001");
+        map.put("name","韦之鹏");
+        map.put("bjCode","22RG01");
+-->
+    <select id="queryByMultiParam2" resultType="student">
+        select * from student st,bjclass bj where st.bj_id=bj.bj_id
+        <if test="number!=null and number!=''">
+            and number like concat('%',#{number},'%')
+        </if>
+        <if test="name!=null and name!=''">
+            and name like concat('%',#{name},'%')
+        </if>
+        <if test="bjCode!=null and bjCode!=''">
+            and bj.bj_code = #{bjCode}
+        </if>
+      </select>
+
+    <!--    //2.1 <if>+<where>的使用-->
+    <!--    // 根据学号、姓名和年龄等多条件组合查询出符合条件的学生-->
+    <!--    List<Student> queryByMultiParam3(Student student);-->
+    <select id="queryByMultiParam3" resultType="student">
+        select * from student
+
+            <if test="number!=null and number!=''">
+                and number like concat('%',#{number},'%')
+            </if>
+            <if test="name!=null and name!=''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="age>0">
+                and age=#{age}
+            </if>
+
+    </select>
+
+<!--    //2.2 <set>配合<if>的使用
+         根据id，只修改有值的列    -->
+<!--    int updateStudent(Student stu);-->
+<!--    <set>和<if>用法  必须要有一个条件成立，否则sql语法错-->
+    <update id="updateStudent">
+        update student
+
+            <if test="number!=null and number!=''">
+                 number=#{number},
+            </if>
+            <if test="name!=null and name!=''">
+                 name=#{name},
+            </if>
+            <if test="age>0">
+                 age=#{age},
+            </if>
+            <if test="intro!=null and intro!=''">
+                intro=#{intro}
+            </if>
+
+        where id=#{id}
+    </update>
+
+<!--    //3 <choose>、<when>、<otherwise>的使用-->
+<!--    // 多条件按优先级查询，-->
+<!--    // 如果有学号则按照学号，-->
+<!--    // 没有学号，有姓名则按照姓名查询-->
+<!--    // 否则查询age>30-->
+<!--    List<Student> selectByOneCondition(Student stu);-->
+    <select id="selectByOneCondition" resultType="student">
+        select * from student
+        <where>
+            <choose>
+                <when test="number!=null and number!=''"> <!-- if-->
+                    number=#{number}
+                </when>
+                <when test="name!=null and name!=''"> <!--else if-->
+                    name=#{name}
+                </when>
+                <otherwise>  <!--  else -->
+                    age = 30  <!-- > &gt; -->
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+<!--    //4.1 批量删除学生-->
+<!--    int deleteMulti(int[] ids);
+        Available parameters are [array, arg0]
+        delete from student where id in(?,?,?)
+-->
+    <delete id="deleteMulti">
+        delete from student where id in
+        <foreach collection="array" item="tempId" separator="," open="("  close=")">
+            #{tempId}
+        </foreach>
+    </delete>
+
+    <!-- int deleteMulti2(@Param("ids") int[] ids);-->
+    <delete id="deleteMulti2">
+        delete from student where id in
+        <foreach collection="ids" item="tempId" separator="," open="("  close=")">
+            #{tempId}
+        </foreach>
+    </delete>
+
+<!--    //4.2 批量插入 int insertStudents(List<Student> studentList);
+    sql的语法：    insert into student(number,name,age,intro) values
+    ('029094067','阿飞',35,''),('029094068','百晓生',36,'')
+-->
+<!--
+       报错：
+       Cause: org.apache.ibatis.binding.BindingException:
+       Parameter 'studentList' not found.
+       Available parameters are [arg0, collection, list]
+-->
+       <insert id="insertStudents" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+           insert into student(number,name,age,intro) values
+
+       </insert>
+
+    <!--
+       int insertStudents2(@Param("studentList") List<Student> studentList);
+    -->
+    <insert id="insertStudents2" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into student(number,name,age,intro) values
+        <foreach collection="studentList" item="stu" separator=",">
+            
+        </foreach>
+
+    </insert>
+</mapper>

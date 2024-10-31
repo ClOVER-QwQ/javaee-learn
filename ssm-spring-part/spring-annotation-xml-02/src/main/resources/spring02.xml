@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+    <!--开启注解扫描,精确指定对那个包下的类进行注解扫描-->
+    <context:component-scan base-package="com.javaee.annotaion.dao.Impl,com.javaee.annotaion.service.Impl"/>
+    <!--第三方类交由Spring容器管理-->
+<!--    druidDataSource=new DruidDataSource();-->
+<!--    druidDataSource.setUrl("jdbc:mysql://localhost:3306/javaeedb?serverTimezone=UTC");-->
+<!--    druidDataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");-->
+<!--    druidDataSource.setUsername("javaee");-->
+<!--    druidDataSource.setPassword("javaee1234");-->
+    <bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="url" value="jdbc:mysql://localhost:3306/javaeedb?serverTimezone=UTC" />
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="username" value="javaee" />
+        <property name="password" value="javaee1234"/>
+    </bean>
+<!--    jdbcTemplate=new JdbcTemplate();-->
+<!--    jdbcTemplate.setDataSource(druidDataSource);-->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="druidDataSource"/>
+    </bean>
+</beans>

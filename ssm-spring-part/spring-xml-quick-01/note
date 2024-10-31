@@ -1,0 +1,82 @@
+/*******************1 Spring入门程序***************************/
+1.1 引入依赖
+<dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>6.1.12</version>
+  </dependency>
+  <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>5.9.3</version>
+  </dependency>
+1.2 创建spring配置文件
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="studentDao" class="com.javaee.dao.StudentDao" />
+</beans>
+1.3 创建spring容器，并获取配置文件种配置的bean，测试验证
+    @Test
+    public void testSpringIoc(){
+        ApplicationContext context =
+                new ClassPathXmlApplicationContext("spring01.xml");
+        //通过bean的id获取bean对象时，需要强制类型转换
+        StudentDao studentDao = (StudentDao)context.getBean("studentDao");
+        studentDao.insertStudent();
+    }
+
+/*******************2 基于XML方式实现Spring的依赖注入***************************/
+要求：为StudentServie注入依赖的StudentDao
+2.1 采用设值注入（即spring容器调用setter方法赋值）
+    2.1.1 改造StudentServie类（提供无参构造方法和依赖属性的setter方法）
+        //1) 声明但不赋值
+        private StudentDao studentDao;
+
+        //2) 提供setter方法
+        public void setStudentDao(StudentDao sDao){
+            studentDao = sDao;
+        }
+        //3) 无参构造方法
+        public StudentService(){ }
+
+    2.1.2 spring配置文件使用<property>元素
+        <bean id="stuService" class="com.javaee.service.StudentService">
+            <!--设值注入-->
+            <property name="studentDao" ref="stuDao"/>
+        </bean>
+
+    2.1.3 创建spring容器测试验证
+        @Test
+        public void testSpringIoc(){
+            ApplicationContext ctx = new ClassPathXmlApplicationContext("spring01.xml");
+            //通过bean的class获取bean对象时，不需要强制类型转换
+            // 但要求配置文件只配了一个StudentService的bean，
+            // 否则抛出异常：NoUniqueBeanDefinitionException
+            StudentService stuService = ctx.getBean(StudentService.class);
+            stuService.addStudent();
+        }
+
+
+2.2 采用构造注入（即spring容器调用有参数的构造方法赋值）
+    2.2.1 改造StudentServie类（提供有参构造方法）
+        //构造注入，提供有参构造方法
+        public StudentService(StudentDao sDao){
+            studentDao = sDao;
+        }
+    2.2.2 spring配置文件使用<constructor-arg>元素
+        <bean id="stuService2" class="com.javaee.service.StudentService">
+            <!--构造注入 -->
+            <constructor-arg index="0" ref="stuDao"/>
+        </bean>
+    2.2.3 创建spring容器测试验证
+    @Test
+    public void testSpringIoc(){
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("spring01.xml");
+        //通过bean的class获取bean对象时，不需要强制类型转换
+        //但当配置文件配了多个StudentService的bean，可以传入id，明确访问哪个bean
+        StudentService stuService2 = ctx.getBean("stuService2",StudentService.class);
+        stuService2.addStudent();
+    }

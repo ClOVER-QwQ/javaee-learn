@@ -1,6 +1,7 @@
 package com.clover.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 public class Poet {
     private int id;
@@ -9,14 +10,14 @@ public class Poet {
     private Date deathDate;
     private String dynasty;
     private String biography;
+    private List<Poem> poems;
 
-    public Poet(int id, String name, Date birthDate, Date deathDate, String dynasty, String biography) {
-        this.id = id;
-        this.name = name;
-        this.birthDate = birthDate;
-        this.deathDate = deathDate;
-        this.dynasty = dynasty;
-        this.biography = biography;
+    public List<Poem> getPoems() {
+        return poems;
+    }
+
+    public void setPoems(List<Poem> poems) {
+        this.poems = poems;
     }
 
     public int getId() {

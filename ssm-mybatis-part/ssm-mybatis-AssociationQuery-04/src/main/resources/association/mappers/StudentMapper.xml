@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaee.association.mapper.StudentMapper">
+
+    <!--    根据班级id，查询学生
+    List<Student> selectByBjid(int bjId);    -->
+    <select id="selectByBjid" resultType="student">
+        select * from student where bj_id=#{bjId}
+    </select>
+
+<!--    //嵌套查询                    -->
+<!--    Student selectWithBj(int id);-->
+    <select id="selectWithBj" resultMap="studentMap1">
+        select * from student where id=#{id}
+    </select>
+    <resultMap id="studentMap1" type="student">
+        <!--主键和普通属性，同名自动映射-->
+        <!--关联属性，对一通过association元素映射-->
+        <association property="bjclass" javaType="bjclass"
+        select="com.javaee.association.mapper.BjclassMapper.selectById"
+                     column="bj_id"/>
+    </resultMap>
+
+<!--    //嵌套结果-->
+<!--    Student selectJoinBj(int id);-->
+    <select id="selectJoinBj" resultMap="studentMap2">
+        select * from student st,bjclass bj where st.bj_id=bj.bj_id
+        and st.id=#{id}
+    </select>
+    <resultMap id="studentMap2" type="student">
+        <!--主键和普通属性自动映射-->
+        <!--对一的关联属性通过association映射-->
+        <association property="bjclass" javaType="bjclass">
+            <id column="bj_id" property="bjId"/>
+            <result column="bj_code" property="bjCode"/>
+            <result column="bj_name" property="bjName" />
+        </association>
+    </resultMap>
+</mapper>
+
+
+<mapper namespace="com.example.mapper.LabMapper">
+<resultMap id="labWithDeviceResultMap" type="com.example.entity.Lab">
+    <id property="id" column="id"/>
+    <result property="labNum" column="Lab_Num"/>
+    <result property="labName" column="Lab_Name"/>
+    <collection property="deviceList" ofType="com.example.entity.Device"
+                select="com.example.mapper.DeviceMapper.selectByLabId"
+                column="id">
+    </collection>
+    <result property="deviceCount" column="deviceCount"/>
+</resultMap>
+<select id="selectByIdWithDevice" resultMap="labWithDeviceResultMap">
+    SELECT l.*, (
+    SELECT COUNT(d.id) FROM Device d WHERE d.lab_id = l.id
+    ) AS deviceCount
+    FROM Lab l
+    WHERE l.id = #{labId}
+</select>
+
+<select id="selectByLabId" resultType="com.example.entity.Device">
+    SELECT * FROM Device WHERE lab_id = #{labId}
+</select>
+</mapper>
