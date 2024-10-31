@@ -17,7 +17,7 @@ import java.util.Properties;
 @Configuration
 @ComponentScan("com.clover")
 @PropertySource("classpath:jdbc.properties")
-@MapperScan("com.clover.dao")
+@MapperScan("com.clover.Mapper")
 public class SpringConfig {
     @Value("${jdbc.driver}")
     private String driver;
