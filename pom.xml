@@ -9,8 +9,9 @@
   <url>http://maven.aliyun.com/nexus/content/groups/public</url>
   <modules>
     <module>mavenJavaEE</module>
-    <module>learn-poem</module>
+    <module>learn-poem-back</module>
     <module>ssm-mybatis-part</module>
     <module>ssm-spring-part</module>
+    <module>learn-poem-front</module>
   </modules>
 </project>

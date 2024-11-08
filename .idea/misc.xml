@@ -7,7 +7,11 @@
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
-    <file type="web" url="file://$PROJECT_DIR$/learn-poem" />
+    <file type="web" url="file://$PROJECT_DIR$/learn-poem-back" />
+    <file type="web" url="file://$PROJECT_DIR$/ssm-springmvc-part/MVC-javabean-servlet-jsp/webMvc01" />
+    <file type="web" url="file://$PROJECT_DIR$/ssm-springmvc-part/MVC-javabean-servlet-jsp/webMvc02" />
+    <file type="web" url="file://$PROJECT_DIR$/ssm-springmvc-part/MVC-javabean-servlet-jsp/webMvc03" />
+    <file type="web" url="file://$PROJECT_DIR$/ssm-springmvc-part/springmvc-quickStart-01" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
@@ -18,6 +22,7 @@
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/exam1/pom.xml" />
+        <option value="$PROJECT_DIR$/ssm-springmvc-part/pom.xml" />
       </set>
     </option>
   </component>

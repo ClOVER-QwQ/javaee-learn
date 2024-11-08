@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "exclude": ["node_modules",
+    "../../learn-poem-back/Poem/src/main/webapp/dist"
+  ]
+}
