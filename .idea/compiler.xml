@@ -6,12 +6,12 @@
       <directory url="file://$PROJECT_DIR$/mavenJavaEE/src/main/resources/archetype-resources" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/ssm-mybatis-part/src/main/resources/archetype-resources" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/ssm-mybatis-part/ssm-mybatis-quick-01/src/main/resources/archetype-resources" includeSubdirectories="true" />
-      <directory url="file://$PROJECT_DIR$/learn-poem/src/main/resources/archetype-resources" includeSubdirectories="true" />
-      <directory url="file://$PROJECT_DIR$/learn-poem/Poet/src/main/resources/archetype-resources" includeSubdirectories="true" />
-      <directory url="file://$PROJECT_DIR$/learn-poem/User/src/main/resources/archetype-resources" includeSubdirectories="true" />
-      <directory url="file://$PROJECT_DIR$/learn-poem/Poem/src/main/resources/archetype-resources" includeSubdirectories="true" />
-      <directory url="file://$PROJECT_DIR$/learn-poem/PoemType/src/main/resources/archetype-resources" includeSubdirectories="true" />
-      <directory url="file://$PROJECT_DIR$/learn-poem/Collection/src/main/resources/archetype-resources" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/learn-poem-back/src/main/resources/archetype-resources" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/learn-poem-back/Poet/src/main/resources/archetype-resources" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/learn-poem-back/User/src/main/resources/archetype-resources" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/learn-poem-back/Poem/src/main/resources/archetype-resources" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/learn-poem-back/PoemType/src/main/resources/archetype-resources" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/learn-poem-back/Collection/src/main/resources/archetype-resources" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/exam1/src/main/resources/archetype-resources" includeSubdirectories="true" />
     </excludeFromCompile>
     <annotationProcessing>
@@ -39,6 +39,12 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="exam1" target="17" />
+      <module name="MVC-javabean-servlet-jsp" target="17" />
+      <module name="springmvc-quickStart-01" target="17" />
+      <module name="ssm-springmvc-part" target="17" />
+      <module name="webMvc01" target="17" />
+      <module name="webMvc02" target="17" />
+      <module name="webMvc03" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
