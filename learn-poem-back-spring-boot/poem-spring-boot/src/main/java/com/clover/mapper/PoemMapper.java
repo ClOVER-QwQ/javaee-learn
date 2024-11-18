@@ -1,13 +1,14 @@
-package org.clover.mapper;
+package com.clover.mapper;
 
+
+import org.apache.ibatis.annotations.*;
 import com.clover.pojo.Poem;
 import com.clover.pojo.Poet;
-import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
-
+@Repository
 public interface PoemMapper {
     // 批量插入诗歌
     @Insert({"INSERT INTO learnpoem.poems " +
@@ -77,7 +78,7 @@ public interface PoemMapper {
     Poet selectPoetByPoemId(@Param("id") int id);
 
     // 查询所有诗歌
-    @Select("SELECT * FROM learnpoem.poems")
+    @Select("SELECT poems.* FROM learnpoem.poems ")
     List<Poem> selectAll();
 
     // 根据内容查询诗歌
@@ -109,7 +110,7 @@ public interface PoemMapper {
             @Result(column = "poemTypeId", property = "poemTypeId"),
             @Result(column = "poemType", property = "poemTypeName")
     })
-    Map selectByIdWithPoet(@Param("id") int id);
+    Map<String, Object> selectByIdWithPoet(@Param("id") int id);
 
     // 根据标题查询诗歌详情
     @Select("SELECT * FROM learnpoem.poems WHERE title = #{title}")

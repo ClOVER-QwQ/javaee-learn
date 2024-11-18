@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/LearnPoem?serverTimezone=Asia/Shanghai
+    username: root
+    password: Clover20040302
+
+mybatis:
+  configuration:
+    auto-mapping-behavior: full
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  type-aliases-package: com.clover.pojo

@@ -1,18 +1,16 @@
 import com.clover.config.SpringConfig;
-import com.clover.controller.PoemController;
 import com.clover.dao.PoemDao;
 import com.clover.pojo.Poem;
 import com.clover.pojo.Poet;
 
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.PageInfo;;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import java.util.ArrayList;
@@ -91,7 +89,7 @@ public class PoemDaoTest {
         // 设置分页参数：第1页，每页5条记录
         PageHelper.startPage(1,5);
         // 执行查询
-        List<Poem> poems = poemDao.selectAll();
+        List<Poem> poems = (List<Poem>) poemDao.selectAll();
         // 使用PageInfo包装查询结果
         PageInfo<Poem> pageInfo = new PageInfo<>(poems);
         // 打印分页信息

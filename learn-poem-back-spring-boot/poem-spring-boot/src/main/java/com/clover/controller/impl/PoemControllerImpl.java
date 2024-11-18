@@ -4,15 +4,12 @@ import com.clover.controller.PoemController;
 import com.clover.pojo.Poem;
 import com.clover.pojo.Poet;
 import com.clover.service.PoemService;
-import com.github.pagehelper.PageHelper;
-import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-
+@CrossOrigin(origins = "*")
 @RestController("poemController")
 @RequestMapping("poem")
 public class PoemControllerImpl implements PoemController {
@@ -67,7 +64,7 @@ public class PoemControllerImpl implements PoemController {
 
     @Override
     @GetMapping("select")
-    public List<Poem> selectAll(@RequestParam("num") int pageNum,@RequestParam("size") int pageSize) {
+    public List<Poem> selectAll(@RequestParam("num") int pageNum, @RequestParam("size") int pageSize) {
         return poemService.selectAll(pageNum,pageSize);
     }
 

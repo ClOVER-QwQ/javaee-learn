@@ -1,30 +1,33 @@
 package com.clover.service.impl;
 
-import com.clover.pojo.Poet;
-import com.clover.service.PoemService;
-import com.clover.dao.PoemDao;
+import com.clover.mapper.PoemMapper;
 import com.clover.pojo.Poem;
+import com.clover.pojo.Poet;
+import com.clover.service.DataSourceService;
+import com.clover.service.PoemService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
-
-@Service("poemService")
+@Transactional
+@Service("poemService2")
 public class PoemServiceImpl implements PoemService {
+    
     @Autowired
-    private PoemDao poemDao;
+    private PoemMapper poemMapper;
     private Logger logger = LoggerFactory.getLogger(PoemService.class);
     @Override
     public List<Poem> selectAll(int pageNum,int pageSize) {
         // 设置分页参数：第1页，每页5条记录
         PageHelper.startPage(pageNum,pageSize);
         // 执行查询
-        List<Poem> poems = (List<Poem>) poemDao.selectAll();
+        List<Poem> poems =  poemMapper.selectAll();
         // 使用PageInfo包装查询结果
         PageInfo<Poem> pageInfo = new PageInfo<>(poems);
         // 打印分页信息
@@ -39,7 +42,7 @@ public class PoemServiceImpl implements PoemService {
     @Override
     public List<Poem> selectByMulti(String content, int pageNum,int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
-        List<Poem> poems = poemDao.selectByMulti(content);
+        List<Poem> poems = poemMapper.selectByMulti(content);
         PageInfo<Poem> pageInfo = new PageInfo<>(poems);
         // 打印分页信息
         logger.info("总条数：{}, 总页数：{}, 当前页：{}, 每页数量：{}",
@@ -53,7 +56,7 @@ public class PoemServiceImpl implements PoemService {
     @Override
     public List<String> selectUserByPoemId(int id,int pageNum,int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
-        List<String> users = poemDao.selectUserByPoemId(id);
+        List<String> users = poemMapper.selectUserByPoemId(id);
         PageInfo<String> pageInfo = new PageInfo<>(users);
         // 打印分页信息
         logger.info("总条数：{}, 总页数：{}, 当前页：{}, 每页数量：{}",
@@ -66,31 +69,31 @@ public class PoemServiceImpl implements PoemService {
 
     @Override
     public Map<String, Object> selectByIdWithPoet(int id) {
-        Map<String, Object> poem = poemDao.selectByIdWithPoet(id);
+        Map<String, Object> poem = poemMapper.selectByIdWithPoet(id);
         return poem;
     }
 
     @Override
     public Poem selectByTitle(String title) {
-        Poem poem = poemDao.selectByTitle(title);
+        Poem poem = poemMapper.selectByTitle(title);
         return poem;
     }
 
     @Override
     public Poem selectById(int id) {
-        Poem poem = poemDao.selectById(id);
+        Poem poem = poemMapper.selectById(id);
         return poem;
     }
 
     @Override
     public int insertByPoem(Poem poem) {
         int flag;
-        if (poemDao.selectByTitle(poem.getTitle()) != null){
+        if (poemMapper.selectByTitle(poem.getTitle()) != null){
             System.out.println("该诗歌已存在");
             flag = 0;
         }
         else {
-            poemDao.insertByPoem(poem);
+            poemMapper.insertByPoem(poem);
             flag = 1;
         }
         return flag;
@@ -100,8 +103,8 @@ public class PoemServiceImpl implements PoemService {
     public int batchInsert(List<Poem> poems) {
         int count = 0;
         for (Poem poem : poems) {
-            if (poemDao.selectById(poem.getId()) == null){
-                poemDao.insertByPoem(poem);
+            if (poemMapper.selectById(poem.getId()) == null){
+                poemMapper.insertByPoem(poem);
                 count++;
             }
             else {
@@ -115,8 +118,8 @@ public class PoemServiceImpl implements PoemService {
     public int batchDeleteByIds(List<Integer> ids) {
         int count = 0;
         for (int id : ids){
-            if (poemDao.selectById(id) != null){
-                poemDao.deleteById(id);
+            if (poemMapper.selectById(id) != null){
+                poemMapper.deleteById(id);
                 count++;
             }
             else {
@@ -129,8 +132,8 @@ public class PoemServiceImpl implements PoemService {
     @Override
     public int deleteById(int id) {
         int flag;
-        if (poemDao.selectById(id) != null){
-            poemDao.deleteById(id);
+        if (poemMapper.selectById(id) != null){
+            poemMapper.deleteById(id);
             flag = 1;
         }
         else {
@@ -143,8 +146,8 @@ public class PoemServiceImpl implements PoemService {
     @Override
     public int deleteByTitle(String title) {
         int flag;
-        if (poemDao.selectByTitle(title) != null){
-            poemDao.deleteByTitle(title);
+        if (poemMapper.selectByTitle(title) != null){
+            poemMapper.deleteByTitle(title);
             flag = 1;
         }
         else {
@@ -157,8 +160,8 @@ public class PoemServiceImpl implements PoemService {
     @Override
     public int updateById(int id, String title, String content, String translation, int authorId, int poemTypeId) {
         int flag;
-        if (poemDao.selectById(id) != null){
-            poemDao.updateById(id,title,content,translation,authorId,poemTypeId);
+        if (poemMapper.selectById(id) != null){
+            poemMapper.updateById(id,title,content,translation,authorId,poemTypeId);
             flag = 1;
         }
         else {
@@ -171,8 +174,8 @@ public class PoemServiceImpl implements PoemService {
     @Override
     public int updateTitleById(int id, String title) {
         int flag;
-        if (poemDao.selectById(id) != null){
-            poemDao.updateTitleById(id, title);
+        if (poemMapper.selectById(id) != null){
+            poemMapper.updateTitleById(id, title);
             flag = 1;
         }
         else {
@@ -184,7 +187,7 @@ public class PoemServiceImpl implements PoemService {
 
     @Override
     public Poet selectPoetByPoemId(int id) {
-        Poet poet = poemDao.selectPoetByPoemId(id);
+        Poet poet = poemMapper.selectPoetByPoemId(id);
         if (poet == null){
             System.out.println("不存在相关诗人");
         }
@@ -193,6 +196,6 @@ public class PoemServiceImpl implements PoemService {
 
     @Override
     public int selectCollectorCountById(int poemId) {
-        return poemDao.selectCollectorCountById(poemId);
+        return poemMapper.selectCollectorCountById(poemId);
     }
 }

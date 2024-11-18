@@ -3,23 +3,45 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/exam1/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/exam1/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/learn-poem-back-spring-boot/poem-spring-boot/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/learn-poem-back-spring-boot/poem-spring-boot/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/learn-poem-back-spring-boot/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/learn-poem-back-spring-boot/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/learn-poem-back/Collection/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/learn-poem-back/Collection/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/learn-poem-back/Poem/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/learn-poem-back/Poem/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/learn-poem-back/PoemType/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/learn-poem-back/Poet/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/learn-poem-back/Poet/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/learn-poem-back/User/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/learn-poem-back/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/learn-poem-back/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/learn-poem-front/poem/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/learn-poem-front/poem/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/learn-poem-front/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/learn-poem-front/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/mavenJavaEE/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/mavenJavaEE/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ssm-mybatis-part/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ssm-mybatis-part/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ssm-mybatis-part/ssm-mybatis-AssociationQuery-04/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ssm-mybatis-part/ssm-mybatis-dao-service-07/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ssm-mybatis-part/ssm-mybatis-dynamicQuery-05/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ssm-mybatis-part/ssm-mybatis-param-input-02/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ssm-mybatis-part/ssm-mybatis-quick-01/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ssm-mybatis-part/ssm-mybatis-quick-01/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ssm-mybatis-part/ssm-mybatis-result-output-03/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ssm-spring-part/spring-annotation-javaConfig-03/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ssm-spring-part/spring-annotation-xml-02/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ssm-spring-part/spring-aop-annotation-04/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ssm-spring-part/spring-xml-quick-01/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ssm-spring-part/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ssm-spring-part/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ssm-springmvc-part/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ssm-springmvc-part/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../lib/maven/repository/org/springframework/boot/spring-boot-starter-parent/3.3.3/src/main/resources" charset="UTF-8" />
   </component>
 </project>

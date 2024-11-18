@@ -1,4 +1,4 @@
-package com.clover.controller;
+package com.clover.service;
 
 import com.clover.pojo.Poem;
 import com.clover.pojo.Poet;
@@ -6,8 +6,8 @@ import com.clover.pojo.Poet;
 import java.util.List;
 import java.util.Map;
 
- // 确保您的控制器类上有这个注解
-public interface PoemController {    // 批量插入诗歌
+public interface PoemService {
+    // 批量插入诗歌
     int insertByPoem(Poem poem);
 
     // 批量插入诗歌
@@ -26,7 +26,7 @@ public interface PoemController {    // 批量插入诗歌
     int selectCollectorCountById(int poemId);
 
     // 更新诗歌记录
-    int updateById(Poem poem);
+    int updateById(int id, String title, String content, String translation, int authorId, int poemTypeId);
 
     // 更新诗歌标题
     int updateTitleById(int id, String title);

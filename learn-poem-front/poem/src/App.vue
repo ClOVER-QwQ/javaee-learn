@@ -1,46 +1,43 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <div id="app">
+    <SearchPoemWithPoetByIdBox @search="handleSearch" />
+    <SearchResultPage v-if="showResults" :poem="poem" />
+    <PoemTable msg="Vite + Vue" />
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
+<script>
+import axios from 'axios'; // Import axios
+import SearchPoemWithPoetByIdBox from './components/SearchPoemWithPoetByIdBox.vue'; // 引入 SearchPoemWithPoetByIdBox 组件
+import SearchResultPage from './components/SearchResultPage.vue'; // 引入 SearchResultPage 组件
+import PoemTable from './components/PoemTable.vue'; // 引入 PoemTable 组件
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+export default {
+  name: 'App',
+  components: {
+    SearchPoemWithPoetByIdBox, // 注册 SearchPoemWithPoetByIdBox 组件
+    SearchResultPage, // 注册 SearchResultPage 组件
+    PoemTable // 注册 PoemTable 组件
+  },
+  data() {
+    return {
+      showResults: false, // 控制是否显示搜索结果页面
+      poem: null // 用于存储搜索到的诗文信息
+    };
+  },
+  methods: {
+    async handleSearch(searchId) {
+      try {
+        const response = await axios.get(`http://localhost:8080/learnpoem/poem/selectByIdWithPoet/${searchId}`);
+        this.poem = response.data; // 假设返回的数据结构包含 title, content 和 poet 字段
+        this.showResults = true; // 显示搜索结果页面
+      } catch (error) {
+        console.error('Error searching poem:', error);
+        alert('搜索失败，请检查ID是否正确');
+      }
+    }
   }
+};
+</script>
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>

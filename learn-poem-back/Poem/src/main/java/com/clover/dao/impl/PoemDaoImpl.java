@@ -149,7 +149,7 @@ public class PoemDaoImpl implements PoemDao {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
             PoemMapper mapper = sqlSession.getMapper(PoemMapper.class);
-            List<Poem> result = mapper.selectAll();
+            List<Poem> result = (List<Poem>) mapper.selectAll();
             return result;
         } finally {
             sqlSession.close();

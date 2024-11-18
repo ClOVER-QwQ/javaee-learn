@@ -19,11 +19,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Poem" />
         <module name="ssm-mybatis-param-input-02" />
+        <module name="Poem" />
         <module name="spring-annotation-xml-02" />
         <module name="User" />
         <module name="Poet" />
+        <module name="poem-spring-boot" />
         <module name="spring-aop-annotation-04" />
         <module name="spring-xml-quick-01" />
         <module name="ssm-mybatis-quick-01" />
@@ -31,6 +32,7 @@
         <module name="ssm-mybatis-dynamicQuery-05" />
         <module name="PoemType" />
         <module name="ssm-mybatis-dao-service-07" />
+        <module name="poem" />
         <module name="spring-annotation-javaConfig-03" />
         <module name="Collection" />
         <module name="mavenJavaEE" />
@@ -46,5 +48,27 @@
       <module name="webMvc02" target="17" />
       <module name="webMvc03" target="17" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Collection" options="-parameters" />
+      <module name="Poem" options="-parameters" />
+      <module name="PoemType" options="-parameters" />
+      <module name="Poet" options="-parameters" />
+      <module name="User" options="-parameters" />
+      <module name="mavenJavaEE" options="-parameters" />
+      <module name="poem" options="-parameters" />
+      <module name="poem-spring-boot" options="-parameters" />
+      <module name="spring-annotation-javaConfig-03" options="-parameters" />
+      <module name="spring-annotation-xml-02" options="-parameters" />
+      <module name="spring-aop-annotation-04" options="-parameters" />
+      <module name="spring-xml-quick-01" options="-parameters" />
+      <module name="ssm-mybatis-AssociationQuery-04" options="-parameters" />
+      <module name="ssm-mybatis-dao-service-07" options="-parameters" />
+      <module name="ssm-mybatis-dynamicQuery-05" options="-parameters" />
+      <module name="ssm-mybatis-param-input-02" options="-parameters" />
+      <module name="ssm-mybatis-quick-01" options="-parameters" />
+      <module name="ssm-mybatis-result-output-03" options="-parameters" />
+    </option>
   </component>
 </project>

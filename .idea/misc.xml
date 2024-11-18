@@ -8,6 +8,7 @@
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/learn-poem-back" />
+    <file type="web" url="file://$PROJECT_DIR$/learn-poem-back-spring-boot/poem-spring-boot" />
     <file type="web" url="file://$PROJECT_DIR$/ssm-springmvc-part/MVC-javabean-servlet-jsp/webMvc01" />
     <file type="web" url="file://$PROJECT_DIR$/ssm-springmvc-part/MVC-javabean-servlet-jsp/webMvc02" />
     <file type="web" url="file://$PROJECT_DIR$/ssm-springmvc-part/MVC-javabean-servlet-jsp/webMvc03" />
