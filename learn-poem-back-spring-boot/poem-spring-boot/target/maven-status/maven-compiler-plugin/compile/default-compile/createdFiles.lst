@@ -1,0 +1,11 @@
+com\clover\controller\impl\PoemControllerImpl.class
+com\clover\pojo\Poem.class
+com\clover\controller\PoemController.class
+Main.class
+com\clover\mapper\PoemMapper.class
+com\clover\dao\PoemDao.class
+com\clover\pojo\Poet.class
+com\clover\dao\impl\PoemDaoImpl.class
+com\clover\aspect\LogAspect.class
+com\clover\service\impl\PoemServiceImpl.class
+com\clover\service\PoemService.class
