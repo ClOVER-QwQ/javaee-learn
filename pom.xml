@@ -7,6 +7,11 @@
   <packaging>pom</packaging>
   <name>Archetype - JavaEE</name>
   <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+  <parent>
+  <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.3.3</version>
+  </parent>
   <modules>
     <module>mavenJavaEE</module>
     <module>learn-poem-back</module>
